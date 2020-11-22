@@ -19,9 +19,9 @@ import (
         }
         // VAT Validation check can be found on
         if !resp.Valid {
-            fmt.Errorf("It seems like the VAT provided is not valid :(")
+            fmt.Errorf("It seems like the VAT provided is not valid 😕")
         }
-        // Yay! it is a valid VAT, go do something
+        // 🎉🎉 Yay! it is a valid VAT, go do something
         go doSomething(resp)
         return nil
     }
