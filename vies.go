@@ -1,9 +1,5 @@
 package vies
 
-import (
-	"strings"
-)
-
 const (
 	// VIESEndpoint Current default vies endpoint
 	VIESEndpoint = "http://ec.europa.eu/taxation_customs/vies/services/checkVatService"
@@ -36,8 +32,11 @@ type VIES struct {
 
 // Validate Implementation of validation
 func (v *VIES) Validate(vat string) (*VATValidationResponse, error) {
-	reqPayload := getCheckVatTemplate(vat)
-	bytesPayload := []byte(strings.TrimSpace(reqPayload))
+	reqPayload, err := getCheckVatTemplate(vat)
+	if err != nil {
+		return nil, err
+	}
+	bytesPayload := []byte(reqPayload)
 	resp, err := v.soap.MakeRequest(v.endpoint, "checkVatService", bytesPayload)
 	if err != nil {
 		return nil, err
