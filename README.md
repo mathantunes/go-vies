@@ -1,8 +1,8 @@
 # go-vies
 
-VIES API golang
+VIES API for VAT validation written in native golang
 
-Exposing a simple API to handle VAT validation
+Exposes a simple API to handle VAT validation
 
 ```go
 import (
