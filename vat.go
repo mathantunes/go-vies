@@ -16,8 +16,11 @@ const checkVatTemplate = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envel
 </Body>
 </Envelope>`
 
-func getCheckVatTemplate(vat string) string {
-	return fmt.Sprintf(checkVatTemplate, strings.ToUpper(vat[0:2]), vat[2:])
+func getCheckVatTemplate(vat string) (string, error) {
+	if len(vat) < 2 {
+		return "", fmt.Errorf("Invalid VAT provided %s", vat)
+	}
+	return strings.TrimSpace(fmt.Sprintf(checkVatTemplate, strings.ToUpper(vat[0:2]), vat[2:])), nil
 }
 
 // ValidationVAT Response message for valid responses from VIES
@@ -52,5 +55,8 @@ type vatResponse struct {
 func extractVATResponse(rc io.ReadCloser) (*vatResponse, error) {
 	vatResp := new(vatResponse)
 	err := xml.NewDecoder(rc).Decode(vatResp)
+	if err != nil {
+		return nil, err
+	}
 	return vatResp, err
 }
