@@ -24,6 +24,10 @@ func newSoap() *soap {
 	}
 }
 
+type soapRequester interface {
+	MakeRequest(endpoint, action string, payload []byte) (io.ReadCloser, error)
+}
+
 func (s *soap) MakeRequest(endpoint, action string, payload []byte) (io.ReadCloser, error) {
 	req, err := http.NewRequest(http.MethodPost, VIESEndpoint, bytes.NewReader(payload))
 	if err != nil {
