@@ -1,0 +1,17 @@
+syntax = "proto3";
+package vies;
+import "google/protobuf/timestamp.proto";
+
+message VATValidationResponse {
+    string CountryCode = 1;
+    string VATNumber = 2;
+    google.protobuf.Timestamp RequestDate = 3;
+    bool Valid = 4;
+    string Name = 5;
+    string Address = 6;
+    VATValidationError Error = 7;
+    message VATValidationError{
+        string FaultCode = 1;
+        string FaultString = 2;
+    }    
+}
