@@ -11,11 +11,11 @@ import (
     "fmt"
 )
     func Using() error {
-        v := vies.NewVIES(nil) // specify a different endpoint, otherwise it will utilize the default
+        v := vies.NewValidator(nil) // specify a different endpoint, otherwise it will utilize the default
         resp, err := v.Validate("FI25160553")
         // Failures are described in err
         if err != nil {
-            return err;
+            return err
         }
         // VAT Validation check can be found on
         if !resp.Valid {

@@ -5,8 +5,8 @@ const (
 	VIESEndpoint = "http://ec.europa.eu/taxation_customs/vies/services/checkVatService"
 )
 
-// NewVIES Initializes the VIES API. An endpoint can be passed in or the default VIESEndpoint will be used
-func NewVIES(endpoint *string) Validator {
+// NewValidator Initializes the VIES API. An endpoint can be passed in or the default VIESEndpoint will be used
+func NewValidator(endpoint *string) Validator {
 	if endpoint == nil {
 		return &VIES{
 			endpoint: VIESEndpoint,

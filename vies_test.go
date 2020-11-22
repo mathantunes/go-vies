@@ -18,14 +18,14 @@ func TestVIES_Validate(t *testing.T) {
 	}{
 		{
 			name:    "Invalid VAT - Too short",
-			v:       NewVIES(nil),
+			v:       NewValidator(nil),
 			args:    args{vat: "F"},
 			want:    nil,
 			wantErr: true,
 		},
 		{
 			name: "Invalid VAT - Wrong Number",
-			v:    NewVIES(nil),
+			v:    NewValidator(nil),
 			args: args{vat: "FI123"},
 			want: &VATValidationResponse{
 				CountryCode: "FI",
@@ -39,7 +39,7 @@ func TestVIES_Validate(t *testing.T) {
 		},
 		{
 			name: "Valid VAT - From Finland",
-			v:    NewVIES(nil),
+			v:    NewValidator(nil),
 			args: args{vat: "FI25160553"},
 			want: &VATValidationResponse{
 				CountryCode: "FI",
@@ -66,7 +66,7 @@ func TestVIES_Validate(t *testing.T) {
 	}
 }
 
-func TestNewVIES(t *testing.T) {
+func TestNewValidator(t *testing.T) {
 	type args struct {
 		endpoint *string
 	}
@@ -79,18 +79,18 @@ func TestNewVIES(t *testing.T) {
 		{
 			name: "Without custom endpoint",
 			args: args{endpoint: nil},
-			want: NewVIES(nil),
+			want: NewValidator(nil),
 		},
 		{
 			name: "With custom endpoint",
 			args: args{endpoint: &customEndpoint},
-			want: NewVIES(&customEndpoint),
+			want: NewValidator(&customEndpoint),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewVIES(tt.args.endpoint); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewVIES() = %v, want %v", got, tt.want)
+			if got := NewValidator(tt.args.endpoint); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewValidator() = %v, want %v", got, tt.want)
 			}
 		})
 	}
