@@ -2,7 +2,6 @@ package vies
 
 import (
 	"bytes"
-	"crypto/tls"
 	"fmt"
 	"io"
 	"net/http"
@@ -14,13 +13,7 @@ type soap struct {
 
 func newSoap() *soap {
 	return &soap{
-		httpClient: &http.Client{
-			Transport: &http.Transport{
-				TLSClientConfig: &tls.Config{
-					InsecureSkipVerify: true,
-				},
-			},
-		},
+		httpClient: &http.Client{},
 	}
 }
 
